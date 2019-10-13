@@ -1,0 +1,114 @@
+<html>
+<head>
+<title>ArrayThreads.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6897bb;}
+.s3 { color: #6a8759;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+ArrayThreads.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">application</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">java.util.Random</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.util.concurrent.TimeUnit</span><span class="s0">;</span>
+
+<span class="s0">public class </span><span class="s1">ArrayThreads {</span>
+
+	<span class="s0">static </span><span class="s1">Random generator = </span><span class="s0">new </span><span class="s1">Random()</span><span class="s0">;</span>
+
+
+	<span class="s0">public static void </span><span class="s1">main(String[] args) </span><span class="s0">throws </span><span class="s1">InterruptedException {</span>
+
+		<span class="s1">myArray = </span><span class="s0">new int</span><span class="s1">[</span><span class="s2">400</span><span class="s1">]</span><span class="s0">;</span>
+		<span class="s0">new </span><span class="s1">ArrayThreads().arrayInput()</span><span class="s0">;</span>
+
+		<span class="s0">new </span><span class="s1">Thread(t2).start()</span><span class="s0">;</span>
+		<span class="s0">new </span><span class="s1">Thread(t4).start()</span><span class="s0">;</span>
+		<span class="s0">new </span><span class="s1">Thread(t3).start()</span><span class="s0">;</span>
+		<span class="s0">new </span><span class="s1">Thread(t1).start()</span><span class="s0">;</span>
+
+		<span class="s1">TimeUnit.SECONDS.sleep(</span><span class="s2">1</span><span class="s1">)</span><span class="s0">;</span>
+
+		<span class="s0">long </span><span class="s1">sumAll = sumThreadOne + sumThreadTwo + sumThreadThree + sumThreadFour</span><span class="s0">;</span>
+
+		<span class="s1">System.out.println(</span><span class="s3">&quot;Soma Total do Array: &quot; </span><span class="s1">+ sumAll)</span><span class="s0">;</span>
+	<span class="s1">}</span>
+
+	<span class="s0">static int</span><span class="s1">[] myArray</span><span class="s0">;</span>
+	<span class="s0">static long </span><span class="s1">sumThreadOne</span><span class="s0">;</span>
+	<span class="s0">static long </span><span class="s1">sumThreadTwo</span><span class="s0">;</span>
+	<span class="s0">static long </span><span class="s1">sumThreadThree</span><span class="s0">;</span>
+	<span class="s0">static long </span><span class="s1">sumThreadFour</span><span class="s0">;</span>
+
+	<span class="s0">public final void </span><span class="s1">arrayInput() {</span>
+		<span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">i &lt; myArray.length</span><span class="s0">; </span><span class="s1">i++) {</span>
+			<span class="s1">myArray[i] = generator.nextInt(</span><span class="s2">2</span><span class="s1">)</span><span class="s0">;</span>
+		<span class="s1">}</span>
+	<span class="s1">}</span>
+
+	<span class="s0">static </span><span class="s1">Runnable t1 = </span><span class="s0">new </span><span class="s1">Runnable() {</span>
+
+		<span class="s1">@Override</span>
+		<span class="s0">public void </span><span class="s1">run() {</span>
+			<span class="s0">try </span><span class="s1">{</span>
+				<span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">i &lt; </span><span class="s2">100</span><span class="s0">; </span><span class="s1">i++) {</span>
+					<span class="s1">sumThreadOne += myArray[i]</span><span class="s0">;</span>
+				<span class="s1">}</span>
+				<span class="s1">System.out.println(</span><span class="s3">&quot;Soma do Array T1: &quot; </span><span class="s1">+ sumThreadOne)</span><span class="s0">;</span>
+			<span class="s1">} </span><span class="s0">catch </span><span class="s1">(Exception e) {</span>
+			<span class="s1">}</span>
+		<span class="s1">}</span>
+	<span class="s1">}</span><span class="s0">;</span>
+
+	<span class="s0">static </span><span class="s1">Runnable t2 = </span><span class="s0">new </span><span class="s1">Runnable() {</span>
+
+		<span class="s1">@Override</span>
+		<span class="s0">public void </span><span class="s1">run() {</span>
+			<span class="s0">try </span><span class="s1">{</span>
+				<span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s2">100</span><span class="s0">; </span><span class="s1">i &lt; </span><span class="s2">200</span><span class="s0">; </span><span class="s1">i++) {</span>
+					<span class="s1">sumThreadTwo += myArray[i]</span><span class="s0">;</span>
+				<span class="s1">}</span>
+				<span class="s1">System.out.println(</span><span class="s3">&quot;Soma do Array T2: &quot; </span><span class="s1">+ sumThreadTwo)</span><span class="s0">;</span>
+			<span class="s1">} </span><span class="s0">catch </span><span class="s1">(Exception e) {</span>
+			<span class="s1">}</span>
+		<span class="s1">}</span>
+	<span class="s1">}</span><span class="s0">;</span>
+
+	<span class="s0">static </span><span class="s1">Runnable t3 = </span><span class="s0">new </span><span class="s1">Runnable() {</span>
+
+		<span class="s1">@Override</span>
+		<span class="s0">public void </span><span class="s1">run() {</span>
+			<span class="s0">try </span><span class="s1">{</span>
+				<span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s2">200</span><span class="s0">; </span><span class="s1">i &lt; </span><span class="s2">300</span><span class="s0">; </span><span class="s1">i++) {</span>
+					<span class="s1">sumThreadThree += myArray[i]</span><span class="s0">;</span>
+				<span class="s1">}</span>
+				<span class="s1">System.out.println(</span><span class="s3">&quot;Soma do Array T3: &quot; </span><span class="s1">+ sumThreadThree)</span><span class="s0">;</span>
+			<span class="s1">} </span><span class="s0">catch </span><span class="s1">(Exception e) {</span>
+			<span class="s1">}</span>
+		<span class="s1">}</span>
+	<span class="s1">}</span><span class="s0">;</span>
+
+	<span class="s0">static </span><span class="s1">Runnable t4 = </span><span class="s0">new </span><span class="s1">Runnable() {</span>
+
+		<span class="s1">@Override</span>
+		<span class="s0">public void </span><span class="s1">run() {</span>
+			<span class="s0">try </span><span class="s1">{</span>
+				<span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s2">300</span><span class="s0">; </span><span class="s1">i &lt; </span><span class="s2">400</span><span class="s0">; </span><span class="s1">i++) {</span>
+					<span class="s1">sumThreadFour += myArray[i]</span><span class="s0">;</span>
+				<span class="s1">}</span>
+				<span class="s1">System.out.println(</span><span class="s3">&quot;Soma do Array T4: &quot; </span><span class="s1">+ sumThreadFour)</span><span class="s0">;</span>
+			<span class="s1">} </span><span class="s0">catch </span><span class="s1">(Exception e) {</span>
+			<span class="s1">}</span>
+		<span class="s1">}</span>
+	<span class="s1">}</span><span class="s0">;</span>
+<span class="s1">}</span></pre>
+</body>
+</html>
