@@ -33,7 +33,7 @@ public class ArrayThreads {
 
 	public final void arrayInput() {
 		for (int i = 0; i < myArray.length; i++) {
-			myArray[i] = generator.nextInt(2);
+			myArray[i] = generator.nextInt(11);
 		}
 	}
 
